@@ -117,4 +117,3 @@ export const globalStyles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
- 

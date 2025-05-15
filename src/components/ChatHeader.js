@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {headerStyles, COLORS} from '../theme';
+import {View, Text} from 'react-native';
+import {headerStyles} from '../theme';
 
 /**
  * Header component for the chat screen

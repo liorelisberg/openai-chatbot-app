@@ -34,7 +34,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children}) => {
     setIsDark(colorScheme === 'dark');
   }, [colorScheme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (): void => {
     setIsDark(prev => !prev);
   };
 

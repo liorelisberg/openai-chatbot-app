@@ -1,6 +1,7 @@
 /**
  * Type definitions for chat related structures
  */
+import { FlatList } from 'react-native';
 
 /**
  * Message types
@@ -33,7 +34,7 @@ export interface ChatState {
  * Chat hook return type
  */
 export interface ChatHook extends ChatState {
-  flatListRef: React.RefObject<any>;
+  flatListRef: React.RefObject<FlatList<ChatMessage>>;
   sendChatMessage: (message: string, isConnected: boolean) => Promise<void>;
   loadEarlierMessages: () => Promise<void>;
 }

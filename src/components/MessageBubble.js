@@ -6,21 +6,21 @@ import {AIAvatar, UserAvatar} from './Avatar';
 import {formatTimestamp} from '../utils/helpers';
 
 // Helper function to parse basic markdown
-const parseMarkdown = (text) => {
+const parseMarkdown = text => {
   if (!text) return text;
-  
+
   // Bold text (convert **text** to proper styling)
   const boldStyled = text.replace(/\*\*(.*?)\*\*/g, (match, p1) => {
     return `<b>${p1}</b>`;
   });
-  
+
   return boldStyled;
 };
 
 // Helper to fix emojis
-const fixEmojis = (text) => {
+const fixEmojis = text => {
   if (!text) return text;
-  
+
   // Replace wave emoji text with actual emoji
   return text.replace('👋', '👋 ');
 };
@@ -38,7 +38,6 @@ export const MessageBubble = ({
   isUser,
   showAvatar,
   isTyping = false,
-  onCopy,
 }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
@@ -77,7 +76,7 @@ export const MessageBubble = ({
 
   // Fix: Determine if message is from AI based on the type property, not role
   const isAI = !isUser && message.type === 'ai';
-  
+
   const bubbleStyle = [
     messageStyles.messageBubble,
     isAI ? messageStyles.aiBubble : messageStyles.userBubble,
@@ -90,7 +89,9 @@ export const MessageBubble = ({
   ];
 
   // Process content for display
-  const processedContent = isAI ? parseMarkdown(fixEmojis(message.content)) : message.content;
+  const processedContent = isAI
+    ? parseMarkdown(fixEmojis(message.content))
+    : message.content;
 
   return (
     <Animated.View
@@ -110,10 +111,10 @@ export const MessageBubble = ({
           </View>
         ) : (
           <>
-            <Text style={textStyle}>
-              {processedContent}
+            <Text style={textStyle}>{processedContent}</Text>
+            <Text style={messageStyles.timestamp}>
+              {formatTimestamp(message.timestamp)}
             </Text>
-            <Text style={messageStyles.timestamp}>{formatTimestamp(message.timestamp)}</Text>
 
             {isAI && (
               <View style={messageStyles.messageActions}>

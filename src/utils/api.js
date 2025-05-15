@@ -1,4 +1,4 @@
-import { config, isConfigValid } from '../config/env';
+import {config, isConfigValid} from '../config/env';
 
 /**
  * API utility functions
@@ -26,7 +26,7 @@ export const fetchWithTimeout = (url, options, timeout = config.TIMEOUT) => {
  * @returns {Promise} - Promise that resolves with the API response
  * @throws {Error} If API key is not configured or API request fails
  */
-export const sendChatMessage = async (message) => {
+export const sendChatMessage = async message => {
   if (!isConfigValid()) {
     throw new Error('OpenAI API key not configured');
   }

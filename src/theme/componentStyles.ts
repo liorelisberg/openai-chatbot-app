@@ -3,37 +3,27 @@ import {COLORS} from './theme';
 
 // Suggestion styles
 export const suggestionStyles = StyleSheet.create({
-  suggestionsContainer: {
+  selectedIndicator: {
     backgroundColor: COLORS.background,
-    borderTopColor: COLORS.border,
-    borderTopWidth: 0.5,
-    paddingTop: 12,
-    paddingBottom: 20,
-    paddingHorizontal: 16,
-  },
-  suggestionsTitle: {
-    color: COLORS.textLight,
-    fontSize: 14,
-    fontWeight: '500',
-    marginBottom: 12,
-  },
-  suggestionsScrollContent: {
-    paddingBottom: 8,
+    borderRadius: 4,
+    height: 8,
+    marginLeft: 8,
+    width: 8,
   },
   suggestionChip: {
     alignItems: 'center',
     backgroundColor: 'rgba(10, 132, 255, 0.1)',
     borderRadius: 24,
+    borderWidth: 0,
+    elevation: 1,
     flexDirection: 'row',
     marginRight: 16,
     paddingHorizontal: 18,
     paddingVertical: 10,
-    borderWidth: 0,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.08,
     shadowRadius: 2,
-    elevation: 1,
   },
   suggestionChipSelected: {
     backgroundColor: COLORS.primary,
@@ -46,12 +36,22 @@ export const suggestionStyles = StyleSheet.create({
   suggestionTextSelected: {
     color: COLORS.background,
   },
-  selectedIndicator: {
+  suggestionsContainer: {
     backgroundColor: COLORS.background,
-    borderRadius: 4,
-    height: 8,
-    marginLeft: 8,
-    width: 8,
+    borderTopColor: COLORS.border,
+    borderTopWidth: 0.5,
+    paddingBottom: 20,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+  },
+  suggestionsScrollContent: {
+    paddingBottom: 8,
+  },
+  suggestionsTitle: {
+    color: COLORS.textLight,
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 12,
   },
 });
 
@@ -105,6 +105,7 @@ export const headerStyles = StyleSheet.create({
     backgroundColor: COLORS.background,
     borderBottomColor: 'rgba(0,0,0,0.05)',
     borderBottomWidth: 0.5,
+    elevation: 2,
     flexDirection: 'row',
     height: 60,
     paddingHorizontal: 20,
@@ -112,7 +113,6 @@ export const headerStyles = StyleSheet.create({
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.05,
     shadowRadius: 2,
-    elevation: 2,
   },
   headerTitle: {
     color: COLORS.text,
@@ -125,10 +125,10 @@ export const headerStyles = StyleSheet.create({
 // Message bubble styles
 export const messageStyles = StyleSheet.create({
   actionButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
     backgroundColor: 'rgba(10, 132, 255, 0.1)',
     borderRadius: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   actionButtonText: {
     color: COLORS.primary,
@@ -136,10 +136,10 @@ export const messageStyles = StyleSheet.create({
     fontWeight: '600',
   },
   aiBubble: {
-    backgroundColor: '#F2F2F7', // Light gray for AI messages
+    backgroundColor: '#F2F2F7',
+    borderColor: 'rgba(0,0,0,0.05)',
     borderRadius: 22,
     borderWidth: 0.5,
-    borderColor: 'rgba(0,0,0,0.05)',
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.05,
@@ -195,6 +195,20 @@ export const messageStyles = StyleSheet.create({
     marginTop: 6,
     opacity: 0.7,
   },
+  typingContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 10,
+  },
+  typingDot: {
+    backgroundColor: COLORS.textLight,
+    borderRadius: 4,
+    height: 8,
+    marginHorizontal: 3,
+    opacity: 0.6,
+    width: 8,
+  },
   userBubble: {
     backgroundColor: '#0A84FF', // Consistent blue for user bubbles
     borderRadius: 22,
@@ -210,20 +224,6 @@ export const messageStyles = StyleSheet.create({
   userText: {
     color: COLORS.background,
   },
-  typingContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  typingDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: COLORS.textLight,
-    marginHorizontal: 3,
-    opacity: 0.6,
-  },
 });
 
 // Avatar styles
@@ -231,10 +231,10 @@ export const avatarStyles = StyleSheet.create({
   aiAvatarInner: {
     alignItems: 'center',
     backgroundColor: COLORS.primary,
+    borderRadius: 20,
     height: '100%',
     justifyContent: 'center',
     width: '100%',
-    borderRadius: 20,
   },
   aiAvatarText: {
     color: COLORS.background,
@@ -243,23 +243,23 @@ export const avatarStyles = StyleSheet.create({
   },
   avatar: {
     borderRadius: 20,
+    elevation: 2,
     height: 36,
     marginHorizontal: 8,
     overflow: 'hidden',
-    width: 36,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 1,
-    elevation: 2,
+    width: 36,
   },
   userAvatarInner: {
     alignItems: 'center',
     backgroundColor: '#7E57C2', // Softer purple shade
+    borderRadius: 20,
     height: '100%',
     justifyContent: 'center',
     width: '100%',
-    borderRadius: 20,
   },
   userAvatarText: {
     color: COLORS.background,
@@ -285,8 +285,8 @@ export const dateStyles = StyleSheet.create({
     color: COLORS.textLight,
     fontSize: 13,
     fontWeight: '500',
-    marginHorizontal: 16,
     letterSpacing: 0.5,
+    marginHorizontal: 16,
   },
 });
 
@@ -310,32 +310,32 @@ export const inputStyles = StyleSheet.create({
     shadowRadius: 2,
   },
   inputContainer: {
+    alignItems: 'flex-end',
     backgroundColor: COLORS.background,
     borderTopColor: 'rgba(0,0,0,0.05)',
     borderTopWidth: 0.5,
     flexDirection: 'row',
+    paddingBottom: 40,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    paddingBottom: 40,
-    alignItems: 'flex-end',
   },
   sendButton: {
     alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 12,
-    marginBottom: 2,
-    height: 40,
-    width: 40,
     backgroundColor: COLORS.primary,
     borderRadius: 20,
+    height: 40,
+    justifyContent: 'center',
+    marginBottom: 2,
+    marginLeft: 12,
+    width: 40,
   },
   sendButtonDisabled: {
-    opacity: 0.5,
     backgroundColor: 'rgba(10, 132, 255, 0.5)',
+    opacity: 0.5,
   },
   sendButtonText: {
     color: COLORS.background,
     fontSize: 22,
     lineHeight: 26,
   },
-}); 
+});

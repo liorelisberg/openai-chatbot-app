@@ -1,8 +1,5 @@
 import {fetchWithTimeout} from '../utils/api';
-import {
-  config,
-  isConfigValid
-} from '../config/env';
+import {config, isConfigValid} from '../config/env';
 
 // Simple rate limiting protection
 const RATE_LIMIT = {

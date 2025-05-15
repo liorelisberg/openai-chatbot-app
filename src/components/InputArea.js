@@ -40,9 +40,7 @@ export const InputArea = ({
       onPress={onSend}
       disabled={isLoading || input.trim().length === 0}
       testID="send-button">
-      <Text style={inputStyles.sendButtonText}>
-        {isLoading ? '...' : '↗'}
-      </Text>
+      <Text style={inputStyles.sendButtonText}>{isLoading ? '...' : '↗'}</Text>
     </TouchableOpacity>
   </View>
 );

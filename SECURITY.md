@@ -11,9 +11,9 @@ This project uses the OpenAI API which requires an API key. Follow these guideli
    - Add your API key to the file: `OPENAI_API_KEY=your_api_key_here`
    - The `.env` file is listed in `.gitignore` and should never be committed
 
-2. **Example Configuration**
-   - Use the `.env.example` file as a template for your own `.env` file
-   - This example file contains placeholder values and is safe to commit
+2. **How Environment Variables Are Used**
+   - The app loads your API key through Expo's configuration system
+   - Environment variables are securely managed and not exposed to client-side code
 
 ### API Key Security
 
@@ -23,8 +23,8 @@ This project uses the OpenAI API which requires an API key. Follow these guideli
    - Regenerate your key if you suspect it has been compromised
 
 2. **Key Usage**
-   - This app uses environment variables with the react-native-dotenv package
-   - The key is loaded securely at runtime from your `.env` file
+   - The API key is loaded securely at runtime via the Expo Constants and environment variables
+   - The configuration is managed in `src/config/env.ts`
 
 ## Best Practices
 
@@ -42,4 +42,4 @@ This project uses the OpenAI API which requires an API key. Follow these guideli
 
 ## Reporting Security Issues
 
-If you discover a security vulnerability in this project, please report it responsibly by emailing [your-email@example.com]. 
+If you discover a security vulnerability in this project, please report it responsibly by emailing the project maintainers. 

@@ -33,14 +33,12 @@ npm install
 yarn
 ```
 
-> **Note**: A complete list of dependencies can be found in `requirements.txt`. This file is for documentation purposes only.
-
 ## Step 3: Start Metro
 
 To start the Metro dev server, run the following command:
 
 ```sh
-# Using Expo (recommended)
+# Using Expo with tunnel mode (recommended)
 npm run dev
 
 # OR using standard React Native
@@ -80,61 +78,43 @@ npm run ios
 yarn ios
 ```
 
-## Running Tests
-
-This project includes comprehensive test coverage with unit tests and integration tests.
-
-```sh
-# Run all tests
-npm test
-
-# Run tests with coverage report
-npm test -- --coverage
-
-# Run tests in watch mode during development
-npm test -- --watch
-```
-
 ## Project Structure
 
-The app has been refactored into a modular structure:
+The app has a modular structure:
 
 ```
 src/
 ├── components/      # UI components
-├── constants/       # App constants and configuration
+├── config/          # App configuration and environment setup
+├── constants/       # App constants
 ├── hooks/           # Custom React hooks
 ├── screens/         # Main app screens
 ├── services/        # API and other services
 ├── theme/           # Theme and styling
 ├── types/           # TypeScript type definitions
 └── utils/           # Utility functions
-
-# Project Root
-__tests__/               # Test files
-__mocks__/               # Test mocks
-requirements.txt         # JavaScript/React Native dependencies documentation
 ```
 
-## Debug Mode
+## Development
 
-This app has a built-in debug mode to help troubleshoot issues with environment variables and API connectivity.
+The app includes several helpful scripts for development:
 
-### Enabling Debug Mode
+```sh
+# Lint the code
+npm run lint
 
-1. Open `src/constants/secureConfig.js`
-2. Change `DEBUG_MODE` from `false` to `true`:
-   ```javascript
-   const DEBUG_MODE = true; // Set to true only when debugging env issues
-   ```
-3. Restart your application
+# Fix linting issues
+npm run lint:fix
 
-Debug mode will show detailed logs about:
-- Environment variable loading attempts
-- API key validation status
-- Configuration issues 
+# Type checking
+npm run type-check
 
-For normal usage, keep debug mode disabled to minimize console logs.
+# Type checking in watch mode
+npm run type-check:watch
+
+# Analyze dependencies
+npm run analyze
+```
 
 ## Security
 
@@ -155,7 +135,7 @@ For more details, see [SECURITY.md](./SECURITY.md).
 - 📅 Message history with date grouping
 - 🔌 Offline detection
 - 💡 "Try Asking" suggestions with auto-send functionality
-- 🎯 Randomized suggestion pool with 50+ prompt ideas
+- 🎯 Randomized suggestion pool with prompt ideas
 
 ## Troubleshooting
 
@@ -164,7 +144,7 @@ If you're having issues, check these common problems:
 1. **API Key Not Working**: Verify your OpenAI API key is correct and has sufficient quota
 2. **Environment Variables Not Loading**: Ensure your `.env` file is in the root directory and restart the Metro server
 3. **Build Errors**: Make sure all dependencies are installed with `npm install` or `yarn`
-4. **Console Logs**: Enable debug mode (see above) to get detailed information about what's happening
+4. **Metro Connection**: If having connection issues, try using the tunnel mode with `npm run dev`
 
 For more help, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
@@ -172,3 +152,4 @@ For more help, see the [Troubleshooting](https://reactnative.dev/docs/troublesho
 
 - [React Native Documentation](https://reactnative.dev)
 - [OpenAI API Documentation](https://platform.openai.com/docs/api-reference)
+- [Expo Documentation](https://docs.expo.dev/)

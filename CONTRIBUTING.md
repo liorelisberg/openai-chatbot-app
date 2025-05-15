@@ -13,8 +13,8 @@ Thank you for your interest in contributing to the OpenAI Chatbot Demo! This doc
 
 1. Create a branch for your feature/fix: `git checkout -b feature/your-feature-name`
 2. Make your changes
-3. Run tests: `npm test`
-4. Ensure your code passes linting: `npm run lint`
+3. Ensure your code passes linting: `npm run lint`
+4. Ensure your code passes type checking: `npm run type-check`
 5. Commit your changes with a descriptive message
 6. Push to your fork: `git push origin feature/your-feature-name`
 7. Create a Pull Request to the main repository
@@ -23,8 +23,8 @@ Thank you for your interest in contributing to the OpenAI Chatbot Demo! This doc
 
 - Follow the existing code style and naming conventions
 - Write meaningful commit messages
-- Add/update tests for your changes
 - Update documentation when necessary
+- Use TypeScript for type safety when possible
 
 ## Project Structure
 
@@ -33,7 +33,8 @@ The app follows a modular structure:
 ```
 src/
 ├── components/      # UI components
-├── constants/       # App constants and configuration
+├── config/          # App configuration and environment setup
+├── constants/       # App constants
 ├── hooks/           # Custom React hooks
 ├── screens/         # Main app screens
 ├── services/        # API and other services
@@ -42,10 +43,13 @@ src/
 └── utils/           # Utility functions
 ```
 
-## Testing
+## Development Scripts
 
-- Write unit tests for new functionality
-- Run existing tests to ensure your changes don't break anything
+- `npm run lint` - Run ESLint to check code quality
+- `npm run lint:fix` - Fix linting issues automatically
+- `npm run type-check` - Run TypeScript type checking
+- `npm run dev` - Start the development server with Expo in tunnel mode
+- `npm run analyze` - Analyze dependencies with depcheck
 
 ## Security Considerations
 
@@ -55,7 +59,7 @@ src/
 
 ## Pull Request Process
 
-1. Ensure all tests pass
+1. Ensure linting and type checking pass
 2. Update the README.md if necessary
 3. Your PR will be reviewed by maintainers
 4. Address any requested changes

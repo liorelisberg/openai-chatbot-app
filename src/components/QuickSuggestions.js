@@ -45,18 +45,22 @@ export const QuickSuggestions = ({onPress, onSend, count = 5}) => {
             style={[
               suggestionStyles.suggestionChip,
               // Visual indication for selected suggestion
-              index === selectedIndex && suggestionStyles.suggestionChipSelected,
+              index === selectedIndex &&
+                suggestionStyles.suggestionChipSelected,
             ]}
             onPress={() => handleSuggestionPress(suggestion, index)}
             testID="suggestion-chip">
-            <Text 
+            <Text
               style={[
                 suggestionStyles.suggestionText,
-                index === selectedIndex && suggestionStyles.suggestionTextSelected
+                index === selectedIndex &&
+                  suggestionStyles.suggestionTextSelected,
               ]}>
               {suggestion}
             </Text>
-            {index === selectedIndex && <View style={suggestionStyles.selectedIndicator} />}
+            {index === selectedIndex && (
+              <View style={suggestionStyles.selectedIndicator} />
+            )}
           </TouchableOpacity>
         ))}
       </ScrollView>

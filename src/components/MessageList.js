@@ -76,7 +76,7 @@ export const MessageList = ({
 
     // Fix: Check the type property to determine if message is from user
     const isUser = item.type === 'user';
-    
+
     const showAvatar =
       index === 0 ||
       messages[index - 1].type !== item.type ||

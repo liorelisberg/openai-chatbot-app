@@ -136,7 +136,7 @@ const ChatScreen = () => {
 
         {/* Quick suggestions with auto-send functionality */}
         {shouldShowSuggestions && (
-          <View style={{marginBottom: isKeyboardVisible ? 50 : 0}}>
+          <View style={isKeyboardVisible ? styles.suggestionsWithKeyboard : styles.suggestions}>
             <QuickSuggestions
               onPress={handleSuggestionPress}
               onSend={useAutoSend ? handleSuggestionSend : undefined}
@@ -188,6 +188,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
+  },
+  suggestions: {
+    marginBottom: 0,
+  },
+  suggestionsWithKeyboard: {
+    marginBottom: 50,
   },
 });
 

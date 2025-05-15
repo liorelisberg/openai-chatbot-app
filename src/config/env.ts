@@ -37,9 +37,11 @@ export const config: AppConfig = {
 
 export const isConfigValid = (): boolean => {
   const apiKey = config.OPENAI_API_KEY;
-  
+
   if (!apiKey || typeof apiKey !== 'string' || apiKey.trim() === '') {
-    console.error('[CONFIG] Missing OpenAI API Key. Please check your .env file.');
+    console.error(
+      '[CONFIG] Missing OpenAI API Key. Please check your .env file.',
+    );
     return false;
   }
 
@@ -47,10 +49,12 @@ export const isConfigValid = (): boolean => {
     return true;
   }
 
-  console.error('[CONFIG] Invalid OpenAI API Key format. Key should start with "sk-"');
+  console.error(
+    '[CONFIG] Invalid OpenAI API Key format. Key should start with "sk-"',
+  );
   return false;
 };
 
 export const setApiKey = (key: string): void => {
   config.OPENAI_API_KEY = key;
-}; 
+};

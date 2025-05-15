@@ -8,23 +8,24 @@ export default {
     openaiApiKey: process.env.OPENAI_API_KEY || null,
   },
   updates: {
-    fallbackToCacheTimeout: 0
+    fallbackToCacheTimeout: 0,
   },
-  assetBundlePatterns: [
-    "**/*"
-  ],
+  assetBundlePatterns: ['**/*'],
   ios: {
-    supportsTablet: true
+    supportsTablet: true,
   },
   android: {
     adaptiveIcon: {
-      backgroundColor: "#FFFFFF"
-    }
+      backgroundColor: '#FFFFFF',
+    },
   },
   web: {
-    favicon: "./assets/favicon.png"
-  }
+    favicon: './assets/favicon.png',
+  },
 };
 
 // Debug log for build time
-console.debug('[ENV] Loading with API key:', process.env.OPENAI_API_KEY ? 'Found' : 'Not found'); 
+console.debug(
+  '[ENV] Loading with API key:',
+  process.env.OPENAI_API_KEY ? 'Found' : 'Not found',
+);
