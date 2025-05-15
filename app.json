@@ -1,4 +1,17 @@
 {
   "name": "openai_demo",
-  "displayName": "openai_demo"
+  "displayName": "OpenAI Demo",
+  "expo": {
+    "name": "OpenAI Demo",
+    "slug": "openai-demo",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id"
+      }
+    }
+  }
 }

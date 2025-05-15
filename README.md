@@ -1,26 +1,55 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a [**React Native**](https://reactnative.dev) AI Chatbot application that uses the OpenAI API.
 
 # Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
-## Step 1: Start Metro
+## Step 1: Set up Environment Variables (Important!)
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+This app requires an OpenAI API key to function properly. For security reasons, API keys are not committed to version control.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+1. Create a `.env` file in the root directory:
+
+```sh
+touch .env
+```
+
+2. Add your OpenAI API key to the file:
+
+```
+# .env file
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+> **Security Warning**: Never commit your `.env` file to version control. It's already added to `.gitignore`.
+
+## Step 2: Install Dependencies
 
 ```sh
 # Using npm
-npm start
+npm install
 
 # OR using Yarn
-yarn start
+yarn
 ```
 
-## Step 2: Build and run your app
+> **Note**: A complete list of dependencies can be found in `requirements.txt`. This file is for documentation purposes only.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## Step 3: Start Metro
+
+To start the Metro dev server, run the following command:
+
+```sh
+# Using Expo (recommended)
+npm run dev
+
+# OR using standard React Native
+npm start
+```
+
+## Step 4: Build and run your app
+
+With Metro running, open a new terminal window/pane and use one of the following commands:
 
 ### Android
 
@@ -34,21 +63,14 @@ yarn android
 
 ### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+For iOS, first install CocoaPods dependencies:
 
 ```sh
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Then run:
 
 ```sh
 # Using npm
@@ -58,40 +80,95 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Running Tests
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+This project includes comprehensive test coverage with unit tests and integration tests.
 
-## Step 3: Modify your app
+```sh
+# Run all tests
+npm test
 
-Now that you have successfully run the app, let's make changes!
+# Run tests with coverage report
+npm test -- --coverage
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+# Run tests in watch mode during development
+npm test -- --watch
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Project Structure
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+The app has been refactored into a modular structure:
 
-## Congratulations! :tada:
+```
+src/
+├── components/      # UI components
+├── constants/       # App constants and configuration
+├── hooks/           # Custom React hooks
+├── screens/         # Main app screens
+├── services/        # API and other services
+├── theme/           # Theme and styling
+├── types/           # TypeScript type definitions
+└── utils/           # Utility functions
 
-You've successfully run and modified your React Native App. :partying_face:
+# Project Root
+__tests__/               # Test files
+__mocks__/               # Test mocks
+requirements.txt         # JavaScript/React Native dependencies documentation
+```
 
-### Now what?
+## Debug Mode
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+This app has a built-in debug mode to help troubleshoot issues with environment variables and API connectivity.
 
-# Troubleshooting
+### Enabling Debug Mode
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+1. Open `src/constants/secureConfig.js`
+2. Change `DEBUG_MODE` from `false` to `true`:
+   ```javascript
+   const DEBUG_MODE = true; // Set to true only when debugging env issues
+   ```
+3. Restart your application
 
-# Learn More
+Debug mode will show detailed logs about:
+- Environment variable loading attempts
+- API key validation status
+- Configuration issues 
 
-To learn more about React Native, take a look at the following resources:
+For normal usage, keep debug mode disabled to minimize console logs.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Security
+
+This project uses the OpenAI API which requires an API key. To keep your API key secure:
+
+1. **Never commit API keys to version control**
+2. **Use environment variables** via the `.env` file
+3. **Check your code before pushing** to ensure no secrets are included
+
+For more details, see [SECURITY.md](./SECURITY.md).
+
+## Features
+
+- 💬 Chat with OpenAI's GPT model
+- 🎨 Beautiful and responsive UI
+- 📱 Mobile-optimized experience
+- 🔄 Loading states and error handling
+- 📅 Message history with date grouping
+- 🔌 Offline detection
+- 💡 "Try Asking" suggestions with auto-send functionality
+- 🎯 Randomized suggestion pool with 50+ prompt ideas
+
+## Troubleshooting
+
+If you're having issues, check these common problems:
+
+1. **API Key Not Working**: Verify your OpenAI API key is correct and has sufficient quota
+2. **Environment Variables Not Loading**: Ensure your `.env` file is in the root directory and restart the Metro server
+3. **Build Errors**: Make sure all dependencies are installed with `npm install` or `yarn`
+4. **Console Logs**: Enable debug mode (see above) to get detailed information about what's happening
+
+For more help, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+
+## Learn More
+
+- [React Native Documentation](https://reactnative.dev)
+- [OpenAI API Documentation](https://platform.openai.com/docs/api-reference)
