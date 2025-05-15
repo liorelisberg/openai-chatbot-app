@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Keyboard } from 'react-native';
+import {useState, useEffect} from 'react';
+import {Keyboard} from 'react-native';
 
 /**
  * Hook to track keyboard visibility
@@ -13,13 +13,13 @@ export const useKeyboard = () => {
       'keyboardDidShow',
       () => {
         setKeyboardVisible(true);
-      }
+      },
     );
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       () => {
         setKeyboardVisible(false);
-      }
+      },
     );
 
     return () => {

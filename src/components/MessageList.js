@@ -1,10 +1,15 @@
 import React from 'react';
-import { FlatList, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { messageStyles, loaderStyles } from '../theme/styles';
-import { MessageBubble } from './MessageBubble';
-import { DateSeparator } from './DateSeparator';
-import { isSameDay } from '../utils/helpers';
-import { COLORS } from '../theme/colors';
+import {
+  FlatList,
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import {messageStyles, loaderStyles, COLORS} from '../theme';
+import {MessageBubble} from './MessageBubble';
+import {DateSeparator} from './DateSeparator';
+import {isSameDay} from '../utils/helpers';
 
 /**
  * List header component for the message list
@@ -13,11 +18,13 @@ import { COLORS } from '../theme/colors';
  * @param {boolean} props.isLoadingEarlier - Whether earlier messages are being loaded
  * @param {Function} props.onLoadEarlier - Function to call when load earlier is pressed
  */
-const ListHeader = ({ hasMoreMessages, isLoadingEarlier, onLoadEarlier }) => {
+const ListHeader = ({hasMoreMessages, isLoadingEarlier, onLoadEarlier}) => {
   if (!hasMoreMessages) {
     return (
       <View style={loaderStyles.endOfHistoryContainer}>
-        <Text style={loaderStyles.endOfHistoryText}>Beginning of conversation</Text>
+        <Text style={loaderStyles.endOfHistoryText}>
+          Beginning of conversation
+        </Text>
       </View>
     );
   }
@@ -26,12 +33,13 @@ const ListHeader = ({ hasMoreMessages, isLoadingEarlier, onLoadEarlier }) => {
     <TouchableOpacity
       style={loaderStyles.loadMoreButton}
       onPress={onLoadEarlier}
-      disabled={isLoadingEarlier}
-    >
+      disabled={isLoadingEarlier}>
       {isLoadingEarlier ? (
         <ActivityIndicator size="small" color={COLORS.primary} />
       ) : (
-        <Text style={loaderStyles.loadMoreButtonText}>Load earlier messages</Text>
+        <Text style={loaderStyles.loadMoreButtonText}>
+          Load earlier messages
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -53,29 +61,40 @@ export const MessageList = ({
   isLoadingEarlier,
   flatListRef,
 }) => {
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     // For typing indicator
     if (item.isTyping) {
-      return <MessageBubble message={item} isUser={false} showAvatar={true} isTyping={true} />;
+      return (
+        <MessageBubble
+          message={item}
+          isUser={false}
+          showAvatar={true}
+          isTyping={true}
+        />
+      );
     }
 
+    // Fix: Check the type property to determine if message is from user
     const isUser = item.type === 'user';
-    const showAvatar = index === 0 ||
+    
+    const showAvatar =
+      index === 0 ||
       messages[index - 1].type !== item.type ||
-      (new Date(item.timestamp) - new Date(messages[index - 1].timestamp)) > 5 * 60 * 1000; // 5 minutes
+      new Date(item.timestamp) - new Date(messages[index - 1].timestamp) >
+        5 * 60 * 1000; // 5 minutes
 
     // Check if we need a date separator
-    const showDateHeader = index === 0 ||
-      !isSameDay(new Date(messages[index - 1].timestamp), new Date(item.timestamp));
+    const showDateHeader =
+      index === 0 ||
+      !isSameDay(
+        new Date(messages[index - 1].timestamp),
+        new Date(item.timestamp),
+      );
 
     return (
       <>
         {showDateHeader && <DateSeparator date={new Date(item.timestamp)} />}
-        <MessageBubble
-          message={item}
-          isUser={isUser}
-          showAvatar={showAvatar}
-        />
+        <MessageBubble message={item} isUser={isUser} showAvatar={showAvatar} />
       </>
     );
   };

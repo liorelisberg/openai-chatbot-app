@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { headerStyles } from '../theme/styles';
+import {View, Text, StyleSheet} from 'react-native';
+import {headerStyles, COLORS} from '../theme';
 
 /**
  * Header component for the chat screen
  * @param {Object} props - Component props
  * @param {boolean} props.isConnected - Whether device is connected to the internet
  */
-export const ChatHeader = ({ isConnected }) => (
+export const ChatHeader = ({isConnected}) => (
   <View style={headerStyles.header}>
     <Text style={headerStyles.headerTitle}>AI Chatbot</Text>
     {!isConnected && (

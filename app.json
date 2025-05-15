@@ -1,17 +1,32 @@
 {
-  "name": "openai_demo",
-  "displayName": "OpenAI Demo",
   "expo": {
-    "name": "OpenAI Demo",
+    "name": "OpenAI Chat Demo",
     "slug": "openai-demo",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "extra": {
-      "eas": {
-        "projectId": "your-project-id"
-      }
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.openaidemo"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.openaidemo"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     }
   }
-}
+} 

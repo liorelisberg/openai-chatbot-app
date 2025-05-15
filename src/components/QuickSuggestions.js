@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { suggestionStyles } from '../theme/styles';
-import { getRandomSuggestions } from '../constants/suggestionPool';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {suggestionStyles} from '../theme';
+import {getRandomSuggestions} from '../constants/suggestionPool';
 
 /**
  * Suggestion chips for quick prompts
@@ -10,9 +10,10 @@ import { getRandomSuggestions } from '../constants/suggestionPool';
  * @param {Function} props.onSend - Function to call to send suggestion directly (optional)
  * @param {number} props.count - Number of suggestions to show (default: 5)
  */
-export const QuickSuggestions = ({ onPress, onSend, count = 5 }) => {
+export const QuickSuggestions = ({onPress, onSend, count = 5}) => {
   // State to store the randomized suggestions
   const [suggestions, setSuggestions] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   // Initialize with random suggestions on component mount
   useEffect(() => {
@@ -20,7 +21,8 @@ export const QuickSuggestions = ({ onPress, onSend, count = 5 }) => {
   }, [count]);
 
   // Handle suggestion selection
-  const handleSuggestionPress = (suggestion) => {
+  const handleSuggestionPress = (suggestion, index) => {
+    setSelectedIndex(index);
     if (onSend) {
       // If onSend is provided, send the suggestion directly
       onSend(suggestion);
@@ -36,23 +38,25 @@ export const QuickSuggestions = ({ onPress, onSend, count = 5 }) => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={suggestionStyles.suggestionsScrollContent}
-      >
-        {suggestions.map((suggestion) => (
+        contentContainerStyle={suggestionStyles.suggestionsScrollContent}>
+        {suggestions.map((suggestion, index) => (
           <TouchableOpacity
             key={suggestion}
             style={[
               suggestionStyles.suggestionChip,
-              // Visual indication for auto-send if enabled
-              onSend && suggestionStyles.suggestionChipAutoSend,
+              // Visual indication for selected suggestion
+              index === selectedIndex && suggestionStyles.suggestionChipSelected,
             ]}
-            onPress={() => handleSuggestionPress(suggestion)}
-            testID="suggestion-chip"
-          >
-            <Text style={suggestionStyles.suggestionText}>{suggestion}</Text>
-            {onSend && (
-              <View style={suggestionStyles.sendIndicator} />
-            )}
+            onPress={() => handleSuggestionPress(suggestion, index)}
+            testID="suggestion-chip">
+            <Text 
+              style={[
+                suggestionStyles.suggestionText,
+                index === selectedIndex && suggestionStyles.suggestionTextSelected
+              ]}>
+              {suggestion}
+            </Text>
+            {index === selectedIndex && <View style={suggestionStyles.selectedIndicator} />}
           </TouchableOpacity>
         ))}
       </ScrollView>

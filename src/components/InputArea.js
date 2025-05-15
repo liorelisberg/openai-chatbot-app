@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
-import { inputStyles } from '../theme/styles';
-import { COLORS } from '../theme/colors';
+import {View, TextInput, TouchableOpacity, Text} from 'react-native';
+import {inputStyles, COLORS} from '../theme';
 
 /**
  * Chat input area with send button
@@ -24,7 +23,7 @@ export const InputArea = ({
       ref={inputRef}
       style={inputStyles.input}
       placeholder="Type a message..."
-      placeholderTextColor={COLORS.placeholder}
+      placeholderTextColor={COLORS.textLight}
       value={input}
       onChangeText={onChangeText}
       multiline
@@ -35,14 +34,14 @@ export const InputArea = ({
     <TouchableOpacity
       style={[
         inputStyles.sendButton,
-        (isLoading || input.trim().length === 0) && inputStyles.sendButtonDisabled,
+        (isLoading || input.trim().length === 0) &&
+          inputStyles.sendButtonDisabled,
       ]}
       onPress={onSend}
       disabled={isLoading || input.trim().length === 0}
-      testID="send-button"
-    >
+      testID="send-button">
       <Text style={inputStyles.sendButtonText}>
-        {isLoading ? '...' : 'Send'}
+        {isLoading ? '...' : '↗'}
       </Text>
     </TouchableOpacity>
   </View>

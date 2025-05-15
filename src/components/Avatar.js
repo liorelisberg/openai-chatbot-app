@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { avatarStyles } from '../theme/styles';
+import {View, Text} from 'react-native';
+import {avatarStyles} from '../theme';
 
 /**
  * AI Avatar component

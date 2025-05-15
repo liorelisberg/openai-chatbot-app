@@ -1,14 +1,8 @@
-import { fetchWithTimeout } from '../utils/api';
+import {fetchWithTimeout} from '../utils/api';
 import {
-  API_KEY,
-  API_ENDPOINT,
-  MODEL,
-  SYSTEM_PROMPT,
-  TIMEOUT,
-  MAX_TOKENS,
-  TEMPERATURE,
-  isConfigValid,
-} from '../constants/secureConfig';
+  config,
+  isConfigValid
+} from '../config/env';
 
 // Simple rate limiting protection
 const RATE_LIMIT = {
@@ -76,7 +70,9 @@ export const sendMessage = async (userMessage, messageHistory = []) => {
   try {
     // Check if configuration is valid before making API call
     if (!isConfigValid()) {
-      throw new Error('API key not configured. Please set up your OpenAI API key in .env file.');
+      throw new Error(
+        'API key not configured. Please set up your OpenAI API key in .env file.',
+      );
     }
 
     // Validate inputs
@@ -86,23 +82,25 @@ export const sendMessage = async (userMessage, messageHistory = []) => {
 
     // Check rate limiting
     if (!checkRateLimit()) {
-      throw new Error('Rate limit exceeded. Please wait before sending more messages.');
+      throw new Error(
+        'Rate limit exceeded. Please wait before sending more messages.',
+      );
     }
 
     const response = await fetchWithTimeout(
-      API_ENDPOINT,
+      config.API_ENDPOINT,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${config.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-          model: MODEL,
+          model: config.MODEL,
           messages: [
             {
               role: 'system',
-              content: SYSTEM_PROMPT,
+              content: config.SYSTEM_PROMPT,
             },
             ...messageHistory.map(msg => ({
               role: msg.type === 'user' ? 'user' : 'assistant',
@@ -113,11 +111,11 @@ export const sendMessage = async (userMessage, messageHistory = []) => {
               content: userMessage,
             },
           ],
-          temperature: TEMPERATURE,
-          max_tokens: MAX_TOKENS,
+          temperature: config.TEMPERATURE,
+          max_tokens: config.MAX_TOKENS,
         }),
       },
-      TIMEOUT
+      config.TIMEOUT,
     );
 
     // Check for HTTP errors
@@ -125,7 +123,7 @@ export const sendMessage = async (userMessage, messageHistory = []) => {
       const errorData = await response.json().catch(() => ({}));
       throw new Error(
         errorData.error?.message ||
-        `API returned error status ${response.status}: ${response.statusText}`
+          `API returned error status ${response.status}: ${response.statusText}`,
       );
     }
 
@@ -144,11 +142,15 @@ export const sendMessage = async (userMessage, messageHistory = []) => {
     console.error('Chat service error:', error);
     // Classify error types for better handling by the UI
     if (error.message.includes('timeout')) {
-      throw new Error('Request timeout: The server took too long to respond. Please try again.');
+      throw new Error(
+        'Request timeout: The server took too long to respond. Please try again.',
+      );
     } else if (error.message.includes('API key')) {
       throw new Error('API key error: ' + error.message);
     } else if (error.message.includes('429')) {
-      throw new Error('Rate limit exceeded: Too many requests. Please try again later.');
+      throw new Error(
+        'Rate limit exceeded: Too many requests. Please try again later.',
+      );
     }
     throw error;
   }
@@ -160,7 +162,7 @@ export const sendMessage = async (userMessage, messageHistory = []) => {
  */
 export const checkConnection = async () => {
   try {
-    await fetch('https://www.google.com/', { method: 'HEAD' });
+    await fetch('https://www.google.com/', {method: 'HEAD'});
     return true;
   } catch (error) {
     console.error('Connection test failed:', error);

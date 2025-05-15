@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { checkConnection } from '../services/chatService';
+import {useState, useEffect} from 'react';
+import {checkConnection} from '../services/chatService';
 
 /**
  * Hook to track network connectivity

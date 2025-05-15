@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { dateStyles } from '../theme/styles';
+import {View, Text} from 'react-native';
+import {dateStyles} from '../theme';
 
 /**
  * Date separator component for chat messages
  * @param {Object} props - Component props
  * @param {Date} props.date - Date to display
  */
-export const DateSeparator = ({ date }) => (
+export const DateSeparator = ({date}) => (
   <View style={dateStyles.dateSeparator}>
     <View style={dateStyles.dateLine} />
     <Text style={dateStyles.dateText}>

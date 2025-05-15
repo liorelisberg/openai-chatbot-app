@@ -1,16 +1,24 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, StatusBar, Text, View, StyleSheet, Alert, Linking } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { globalStyles } from '../theme/styles';
-import { COLORS } from '../theme/colors';
-import { useChat } from '../hooks/useChat';
-import { useConnection } from '../hooks/useConnection';
-import { useKeyboard } from '../hooks/useKeyboard';
-import { ChatHeader } from '../components/ChatHeader';
-import { MessageList } from '../components/MessageList';
-import { InputArea } from '../components/InputArea';
-import { QuickSuggestions } from '../components/QuickSuggestions';
-import { isConfigValid } from '../constants/secureConfig';
+import React, {useState, useRef, useEffect} from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar,
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+  Linking,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {globalStyles, COLORS} from '../theme';
+import {useChat} from '../hooks/useChat';
+import {useConnection} from '../hooks/useConnection';
+import {useKeyboard} from '../hooks/useKeyboard';
+import {ChatHeader} from '../components/ChatHeader';
+import {MessageList} from '../components/MessageList';
+import {InputArea} from '../components/InputArea';
+import {QuickSuggestions} from '../components/QuickSuggestions';
+import {isConfigValid} from '../config/env';
 
 /**
  * Main chat screen component
@@ -45,22 +53,23 @@ const ChatScreen = () => {
         [
           {
             text: 'Learn More',
-            onPress: () => Linking.openURL('https://platform.openai.com/docs/quickstart'),
+            onPress: () =>
+              Linking.openURL('https://platform.openai.com/docs/quickstart'),
           },
-          { text: 'OK' },
-        ]
+          {text: 'OK'},
+        ],
       );
     }
   }, []);
 
   // Handle suggestion press (just fills input field)
-  const handleSuggestionPress = (suggestion) => {
+  const handleSuggestionPress = suggestion => {
     setInput(suggestion);
     inputRef.current?.focus();
   };
 
   // Handle direct suggestion send (skips input field)
-  const handleSuggestionSend = (suggestion) => {
+  const handleSuggestionSend = suggestion => {
     if (!isLoading) {
       sendChatMessage(suggestion, isConnected);
     }
@@ -74,14 +83,17 @@ const ChatScreen = () => {
     }
   };
 
-  // Show suggestions when keyboard is hidden and we have few messages
-  const shouldShowSuggestions = !isKeyboardVisible && messages.length < 5;
+  // Show suggestions when we have few messages
+  const shouldShowSuggestions = messages.length < 5;
 
   // If we have a configuration error, display an error screen
   if (configError) {
     return (
       <SafeAreaView style={globalStyles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor={COLORS.background}
+        />
         <View style={styles.errorContainer}>
           <Text style={styles.errorTitle}>Configuration Error</Text>
           <Text style={styles.errorMessage}>
@@ -93,9 +105,7 @@ const ChatScreen = () => {
           <Text style={styles.errorStep}>
             2. Add your OpenAI API key: OPENAI_API_KEY=your_api_key_here
           </Text>
-          <Text style={styles.errorStep}>
-            3. Restart the app
-          </Text>
+          <Text style={styles.errorStep}>3. Restart the app</Text>
           <Text style={styles.errorNote}>
             See README.md for detailed setup instructions.
           </Text>
@@ -115,8 +125,7 @@ const ChatScreen = () => {
       <KeyboardAvoidingView
         style={globalStyles.flex1}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
-      >
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
         <MessageList
           messages={messages}
           onLoadEarlier={loadEarlierMessages}
@@ -127,11 +136,13 @@ const ChatScreen = () => {
 
         {/* Quick suggestions with auto-send functionality */}
         {shouldShowSuggestions && (
-          <QuickSuggestions
-            onPress={handleSuggestionPress}
-            onSend={useAutoSend ? handleSuggestionSend : undefined}
-            count={5} // Show 5 random suggestions
-          />
+          <View style={{marginBottom: isKeyboardVisible ? 50 : 0}}>
+            <QuickSuggestions
+              onPress={handleSuggestionPress}
+              onSend={useAutoSend ? handleSuggestionSend : undefined}
+              count={5} // Show 5 random suggestions
+            />
+          </View>
         )}
 
         {/* Input area */}
@@ -149,34 +160,34 @@ const ChatScreen = () => {
 
 const styles = StyleSheet.create({
   errorContainer: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  errorTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: COLORS.error,
-    marginBottom: 20,
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
   },
   errorMessage: {
+    color: COLORS.text,
     fontSize: 16,
-    textAlign: 'center',
     marginBottom: 20,
-    color: COLORS.text,
-  },
-  errorStep: {
-    fontSize: 14,
-    marginBottom: 10,
-    color: COLORS.text,
-    alignSelf: 'flex-start',
+    textAlign: 'center',
   },
   errorNote: {
-    fontSize: 14,
-    marginTop: 20,
-    fontStyle: 'italic',
     color: COLORS.textLight,
+    fontSize: 14,
+    fontStyle: 'italic',
+    marginTop: 20,
+  },
+  errorStep: {
+    alignSelf: 'flex-start',
+    color: COLORS.text,
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  errorTitle: {
+    color: COLORS.error,
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 });
 
